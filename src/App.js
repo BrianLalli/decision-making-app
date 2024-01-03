@@ -6,13 +6,14 @@ import ValueInput from './ValueInput';
 import GoalInput from './GoalInput';
 import ScenarioInput from './ScenarioInput';
 import ResultDisplay from './ResultDisplay';
+import { analyzeScenario } from './decisionLogic'; // Ensure this path is correct
 
 function App() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState(false);
   const [values, setValues] = useState([]);
   const [goals, setGoals] = useState({ shortTermGoals: [], longTermGoals: [] });
-  const [analysisResult, setAnalysisResult] = useState(null);  // State to store the analysis result
+  const [analysisResult, setAnalysisResult] = useState(null); // State to store the analysis result
   const steps = ['Enter Values', 'Enter Goals', 'Describe Scenario'];
 
   const handleNext = () => {
@@ -34,16 +35,16 @@ function App() {
   };
 
   const handleSubmitScenario = (scenario) => {
-    // Example: Dummy result from analyzeScenario
-    const dummyResult = {
-      valuesMatchCount: 1, 
-      goalsMatchCount: 0, 
-      advice: 'This scenario aligns more with your values than your goals.'
-    };
-    setAnalysisResult(dummyResult);
+    // Split each value and goal into individual words
+    const splitValues = values.flatMap(value => value.split(/\s+/).map(word => word.trim()));
+    const splitGoals = [...goals.shortTermGoals, ...goals.longTermGoals]
+                        .flatMap(goal => goal.split(/\s+/).map(word => word.trim()));
+
+    const result = analyzeScenario(splitValues, splitGoals, scenario);
+    setAnalysisResult(result);
     setCompleted(true);
     handleNext();
-  };
+};
 
   const getStepContent = (stepIndex) => {
     switch (stepIndex) {
@@ -52,8 +53,7 @@ function App() {
       case 1:
         return <GoalInput onSubmitGoals={handleGoalsSubmit} />;
       case 2:
-        const combinedGoals = [...goals.shortTermGoals, ...goals.longTermGoals];
-        return <ScenarioInput userValues={values} userGoals={combinedGoals} onSubmitScenario={handleSubmitScenario} />;
+        return <ScenarioInput userValues={values} userGoals={[...goals.shortTermGoals, ...goals.longTermGoals]} onSubmitScenario={handleSubmitScenario} />;
       default:
         return 'Unknown Step';
     }

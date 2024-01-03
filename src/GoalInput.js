@@ -16,11 +16,15 @@ const GoalInput = ({ onSubmitGoals }) => {
         const areAllGoalsEntered = shortTermGoals.every(goal => goal.trim() !== "") && 
                                    longTermGoals.every(goal => goal.trim() !== "");
         if (areAllGoalsEntered) {
-            onSubmitGoals({ shortTermGoals, longTermGoals });
+            // Split each goal into individual words and flatten the arrays
+            const splitShortTermGoals = shortTermGoals.flatMap(goal => goal.split(/\s+/).map(word => word.trim()));
+            const splitLongTermGoals = longTermGoals.flatMap(goal => goal.split(/\s+/).map(word => word.trim()));
+            onSubmitGoals({ shortTermGoals: splitShortTermGoals, longTermGoals: splitLongTermGoals });
         } else {
             setIsError(true);
         }
     };
+    
 
     const handleCloseSnackbar = () => {
         setIsError(false);
