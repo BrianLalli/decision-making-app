@@ -22,8 +22,8 @@ function analyzeScenario(values, goals, scenario) {
 
     let valueScore = 0;
     let goalScore = 0;
-    const valueWeight = 1.5; // Adjust as needed
-    const goalWeight = 1.0; // Adjust as needed
+    const valueWeight = 1.5;
+    const goalWeight = 1.0;
 
     scenarioWords.forEach(word => {
         values.forEach((value, index) => {
@@ -54,22 +54,23 @@ function generateAdvice(valueScore, goalScore) {
     const totalScore = valueScore + goalScore;
 
     if (totalScore === 0) {
-        return "Based on your values and goals, this scenario doesn't seem relevant...";
+        return "This scenario doesn't align with your values or goals.";
     }
 
     const valuePercentage = ((valueScore / totalScore) * 100).toFixed(2);
     const goalPercentage = ((goalScore / totalScore) * 100).toFixed(2);
 
-    console.log("Total Score:", totalScore);
-    console.log("Value Percentage:", valuePercentage);
-    console.log("Goal Percentage:", goalPercentage);
-
-    if (valueScore > goalScore) {
-        return `Consider doing this as it aligns with your values (${valuePercentage}%).`;
+    const alignmentThreshold = 70;
+    if (valuePercentage >= alignmentThreshold) {
+        return `Definitely consider this, as it strongly aligns with your values (${valuePercentage}%).`;
+    } else if (goalPercentage >= alignmentThreshold) {
+        return `This aligns well with your goals (${goalPercentage}%), so it might be worth considering.`;
+    } else if (valueScore > goalScore) {
+        return `This aligns more with your values (${valuePercentage}%) than goals. You might want to consider it.`;
     } else if (goalScore > valueScore) {
-        return `Consider doing this as it aligns with your goals (${goalPercentage}%).`;
+        return `This aligns more with your goals (${goalPercentage}%) than values. It's up to you to decide its importance.`;
     } else {
-        return "This scenario has a balanced alignment with both your values and goals.";
+        return "This scenario has a balanced alignment with both your values and goals. Weigh your options carefully.";
     }
 }
 
