@@ -4,12 +4,12 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      // A warm color for primary actions and elements
-      main: '#ff8a65', // Example: warm orange
+      // A cool color for primary actions and elements
+      main: '#1c75bc', // Example: Moon Blue
     },
     secondary: {
       // A contrasting color for secondary actions and elements
-      main: '#4db6ac', // Example: teal
+      main: '#FF6057', // Example: Blood Orange
     },
     background: {
       default: '#fff', // White background for a clean, minimalistic look

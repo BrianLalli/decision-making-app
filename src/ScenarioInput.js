@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Snackbar, Alert } from '@mui/material';
+import { analyzeScenario } from './decisionLogic'; // Import the analyzeScenario function
 
-const ScenarioInput = ({ onSubmitScenario }) => {
+const ScenarioInput = ({ onSubmitScenario, userValues, userGoals }) => { // Assume userValues and userGoals are passed as props
     const [scenario, setScenario] = useState("");
     const [isError, setIsError] = useState(false);
 
     const handleSubmit = () => {
         if (scenario.trim() !== "") {
-            onSubmitScenario(scenario);
+            // Call analyzeScenario when the user submits a scenario
+            const analysisResult = analyzeScenario(userValues, userGoals, scenario);
+            console.log(analysisResult); // For now, we'll just log the result. You can use this in your app as needed.
+
+            onSubmitScenario(scenario); // Continue with your existing submission logic
         } else {
             setIsError(true);
         }

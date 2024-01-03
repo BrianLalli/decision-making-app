@@ -12,9 +12,13 @@ const ResultDisplay = ({ result, isLoading }) => {
                     <Box display="flex" justifyContent="center">
                         <CircularProgress />
                     </Box>
+                ) : result ? (
+                    <Typography variant="h5" component="div">
+                        {result.advice}
+                    </Typography>
                 ) : (
                     <Typography variant="h5" component="div">
-                        {result || "No result available yet."}
+                        No result available yet.
                     </Typography>
                 )}
             </CardContent>
