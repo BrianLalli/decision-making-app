@@ -6,7 +6,7 @@ import ValueInput from './ValueInput';
 import GoalInput from './GoalInput';
 import ScenarioInput from './ScenarioInput';
 import ResultDisplay from './ResultDisplay';
-import { analyzeScenario } from './decisionLogic'; // Import analyzeScenario
+import { analyzeScenario } from './decisionLogic'; // Ensure this path is correct
 
 function App() {
   const [activeStep, setActiveStep] = useState(0);
@@ -35,7 +35,6 @@ function App() {
   };
 
   const handleSubmitScenario = (scenario) => {
-    // Use analyzeScenario directly here
     const result = analyzeScenario(values, [...goals.shortTermGoals, ...goals.longTermGoals], scenario);
     setAnalysisResult(result);
     setCompleted(true);
@@ -49,7 +48,7 @@ function App() {
       case 1:
         return <GoalInput onSubmitGoals={handleGoalsSubmit} />;
       case 2:
-        return <ScenarioInput userValues={values} userGoals={[...goals.shortTermGoals, ...goals.longTermGoals]} onSubmitScenario={handleSubmitScenario} />;
+        return <ScenarioInput onSubmitScenario={handleSubmitScenario} />;
       default:
         return 'Unknown Step';
     }
@@ -96,6 +95,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

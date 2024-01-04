@@ -1,3 +1,5 @@
+import nlp from 'compromise';
+
 function analyzeScenario(values, goals, scenario) {
     console.log("Analyzing Scenario:", scenario);
     console.log("Values:", values);
@@ -17,25 +19,22 @@ function analyzeScenario(values, goals, scenario) {
         return { error: "Scenario is not a string" };
     }
 
-    const scenarioWords = scenario.toLowerCase().split(/\s+/);
-    console.log("Scenario Words:", scenarioWords);
-
+    const doc = nlp(scenario.toLowerCase());
     let valueScore = 0;
     let goalScore = 0;
     const valueWeight = 1.5;
     const goalWeight = 1.0;
 
-    scenarioWords.forEach(word => {
-        values.forEach((value, index) => {
-            if (word === value.toLowerCase()) {
-                valueScore += valueWeight / (index + 1);
-            }
-        });
-        goals.forEach((goal, index) => {
-            if (word === goal.toLowerCase()) {
-                goalScore += goalWeight / (index + 1);
-            }
-        });
+    values.forEach((value, index) => {
+        if (doc.has(value.toLowerCase())) {
+            valueScore += valueWeight / (index + 1);
+        }
+    });
+
+    goals.forEach((goal, index) => {
+        if (doc.has(goal.toLowerCase())) {
+            goalScore += goalWeight / (index + 1);
+        }
     });
 
     console.log("Value Score:", valueScore);
