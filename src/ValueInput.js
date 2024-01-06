@@ -14,14 +14,11 @@ const ValueInput = ({ onSubmitValues }) => {
     const handleSubmit = () => {
         const areAllValuesEntered = values.every(value => value.trim() !== "");
         if (areAllValuesEntered) {
-            // Split each value into individual words and flatten the array
-            const splitValues = values.flatMap(value => value.split(/\s+/).map(word => word.trim()));
-            onSubmitValues(splitValues);
+            onSubmitValues(values);
         } else {
             setIsError(true);
         }
     };
-    
 
     const handleCloseSnackbar = () => {
         setIsError(false);

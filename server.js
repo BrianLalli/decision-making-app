@@ -14,13 +14,22 @@ app.listen(PORT, () => {
 });
 
 app.post("/analyze-scenario", async (req, res) => {
-  const { scenario, values, goals } = req.body;
-
-  // Construct the message for GPT-3.5
-  const messageContent = `Given the values: ${values.join(", ")} and goals: ${goals.join(", ")}, does the following scenario align with these values and goals? Scenario: "${scenario}".`;
-
   try {
+    console.log('Received request body:', req.body); // Log the request body
+
+    const { scenario, values, goals } = req.body;
+
+    // Check if values and goals are arrays
+    if (!Array.isArray(values) || !Array.isArray(goals)) {
+      console.error('Values or goals are not arrays:', values, goals); // Log the error
+      return res.status(400).json({ error: "Values and goals must be arrays" });
+    }
+
+    // Construct the message for GPT-3.5
+    const messageContent = `Given the values: ${values.join(", ")} and goals: ${goals.join(", ")}, does the following scenario align with these values and goals? Scenario: "${scenario}".`;
+
     console.log('Before making the Axios POST request');
+    console.log('Message content:', messageContent); // Log the message content
 
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
