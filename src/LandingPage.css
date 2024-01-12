@@ -1,0 +1,52 @@
+.atropos-container {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 100px; /* Adjust this value as needed */
+    background: #f7f7f7;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: color 0.3s ease; /* Transition for color change */
+  }
+  
+  .atropos-container:hover {
+    color: white; /* Change font color to white on hover */
+  }
+  
+  .atropos-container:hover .title,
+  .atropos-container:hover .description {
+    color: white; /* Change title and description color to white on hover */
+  }
+  
+  .content-box {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .title {
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .start-button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    background-color: #1a90ff;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .start-button:hover {
+    background-color: #0077cc;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
